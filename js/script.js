@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // ---- Language toggle (FR / EN) ----
+  var heroBookLink = document.getElementById('heroBookLink');
+
   function setLang(lang) {
     body.setAttribute('data-lang', lang);
     document.documentElement.setAttribute('lang', lang);
@@ -16,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
     opts.forEach(function (opt) {
       opt.classList.toggle('active', opt.getAttribute('data-lang-btn') === lang);
     });
+    if (heroBookLink) {
+      var url = lang === 'en' ? heroBookLink.getAttribute('data-en-href') : heroBookLink.getAttribute('data-fr-href');
+      if (url) heroBookLink.setAttribute('href', url);
+    }
     try { localStorage.setItem('site-lang', lang); } catch (e) {}
   }
 
